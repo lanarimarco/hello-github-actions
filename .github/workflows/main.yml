@@ -1,5 +1,5 @@
 name: getBranchName
-on: [pull_request, push]
+on: [push]
 
 jobs:
   which_branch:
@@ -7,12 +7,6 @@ jobs:
     steps:
       # extract branch name
       - name: Extract branch name
-        if: github.event_name != 'pull_request'
         shell: bash
-        run: $(echo ${GITHUB_REF#refs/heads/})
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
-
-      # extract branch name on pull request
-      - name: Print branch name
-        if: github.event_name == 'pull_request'
-        run: $(echo ${GITHUB_HEAD_REF})
