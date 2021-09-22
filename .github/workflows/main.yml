@@ -1,12 +1,12 @@
-name: A workflow for my Hello World file
+name: Create patch
 on: push
 
 jobs:
   build:
-    name: Hello world action
+    name: Create patch
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: ./action-a
+      - uses: mdecoleman/pr-branch-name@1.0.1
         with:
-          MY_NAME: "Mona"
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+      - run: echo ${{ steps.vars.outputs.branch }}          
