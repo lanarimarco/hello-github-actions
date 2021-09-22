@@ -8,9 +8,12 @@ jobs:
       # extract branch name
       - name: Extract branch name
         shell: bash
+        # This way I put in steps.<stepid>.outputs.branch
+        # current branchname
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
       # Print branch name
       - name: Print branch name
-        run: echo  ${{ steps.extract_branch.outputs.branch }}      
+        run: echo  ${{ steps.extract_branch.outputs.branch }}
+        run: curl "https://praspbkp.rds-software.com/rdsv5i/webapps/requestviewer.jsp?${{ steps.extract_branch.outputs.branch }}"
