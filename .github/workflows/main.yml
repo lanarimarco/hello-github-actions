@@ -10,3 +10,7 @@ jobs:
         shell: bash
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
+
+      # Print branch name
+      - name: Print branch name
+        run: echo  ${{ steps.extract_branch.outputs.branch }}      
