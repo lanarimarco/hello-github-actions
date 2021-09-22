@@ -1,4 +1,4 @@
-name: getBranchName
+name: Create patch
 on: [push]
 
 jobs:
@@ -19,4 +19,4 @@ jobs:
 
       # Create patch 
       - name: Create patch
-        run: curl "https://praspbkp.rds-software.com/rdsv5i/webapps/requestviewer.jsp?${{ steps.extract_branch.outputs.branch }}"            
+        run: curl "https://asp.rds-software.com/rdsv5i/rest/github/merge/?current=${{ steps.extract_branch.outputs.branch }}&base=master"            
