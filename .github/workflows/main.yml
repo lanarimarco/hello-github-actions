@@ -1,12 +1,22 @@
-name: A workflow for my Hello World file
-on: push
+name: Create patch
+on: [push]
 
 jobs:
-  build:
-    name: Hello world action
+  which_branch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: ./action-a
-        with:
-          MY_NAME: "Mona"
+      # extract branch name
+      - name: Extract branch name
+        shell: bash
+        # This way I put in steps.<stepid>.outputs.branch
+        # current branchname
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      # Print branch name
+      - name: Print branch name
+        run: echo  ${{ steps.extract_branch.outputs.branch }}
+
+      # Create patch 
+      - name: Create patch
+        run: curl "https://asp.rds-software.com/rdsv5i/rest/github/merge/?current=${{ steps.extract_branch.outputs.branch }}&base=master"            
