@@ -16,4 +16,7 @@ jobs:
       # Print branch name
       - name: Print branch name
         run: echo  ${{ steps.extract_branch.outputs.branch }}
-        run: curl "https://praspbkp.rds-software.com/rdsv5i/webapps/requestviewer.jsp?${{ steps.extract_branch.outputs.branch }}"
+
+      # Create patch 
+      - name: Create patch
+        run: curl "https://praspbkp.rds-software.com/rdsv5i/webapps/requestviewer.jsp?${{ steps.extract_branch.outputs.branch }}"            
